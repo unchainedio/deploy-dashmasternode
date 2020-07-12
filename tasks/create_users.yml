@@ -1,0 +1,28 @@
+---    
+# ansible playbook create-users.yml    
+                                                                    
+- name: Create a new Dash user                                     
+  user:                                                           
+    name: dash                                                    
+    state: present                                                
+    password: passwd1234                                          
+    shell: /bin/bash                                              
+                                                                    
+- name: Create Dash Admin User                                     
+  user:                                                           
+    name: dashadmin                                               
+    state: present                                                
+    password: passwd1234                                          
+    shell: /bin/bash
+
+- name: Set authorized key for user 'dashadmin' copying it from current user
+  authorized_key:
+    user: dashadmin
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+       
+- name: Set authorized key for user 'dash' copying it from current user
+  authorized_key:
+    user: dash
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

@@ -1,0 +1,48 @@
+---
+
+#- name: set swap_file variable
+# set_fact:
+  #   swap_file: /var/swapfile
+
+- name: check if swap file exists
+  stat:
+    path: "{{ swap_file }}"
+  register: swap_file_check
+
+- name: create swap file
+  become: true 
+  command: fallocate -l 2G {{ swap_file }}
+  when: not swap_file_check.stat.exists
+
+
+- name: set permissions on swap file
+  become: true
+  file:
+    path: "{{ swap_file }}"
+    mode: 0600
+
+- name: format swap file
+  become: true
+  command: mkswap {{ swap_file }}
+  when: not swap_file_check.stat.exists
+
+- name: add to fstab
+  become: true
+  lineinfile:
+    dest: /etc/fstab
+    regexp: "{{ swap_file }}"
+    line: "{{ swap_file }} none swap sw 0 0"
+
+- name: turn on swap
+  become: true
+  command: swapon -a
+
+- name: set memory management vm.overcommit_memory
+  become: true
+  sysctl:
+    name: vm.overcommit_memory
+    value: "1"
+
+- name: Reboot
+  reboot:
+

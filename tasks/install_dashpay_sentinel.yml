@@ -1,0 +1,49 @@
+- name: git clone dashpay sentinel
+  git:
+    repo: "{{ dashpay_sentinel_url }}"
+    dest: "{{ sentinel_install_path }}"
+    clone: yes
+    update: no
+  register: git_result
+- debug: var=git_result.stoud_lines
+
+- name: pip install sentinel from requirements.txt and in virtualenv
+  pip:
+    chdir: "{{ sentinel_install_path }}"
+    requirements: requirements.txt
+    virtualenv: venv
+  register: pip_result
+- debug: var=pip_result.stdout_lines
+
+- name: Run pip install script in venv
+  command: venv/bin/pip install -r requirements.txt
+  args:
+    chdir: "{{ sentinel_install_path }}" 
+  register: install_result 
+- debug: var=install_result.stdout_lines
+
+
+- name: run py.test
+  command: venv/bin/py.test test
+  args:
+    chdir: "{{ sentinel_install_path }}"
+  register: py_result    
+- debug: var=py_result.stdout_lines
+
+- name: run sentinel.py
+  command: venv/bin/python bin/sentinel.py
+  args: 
+    chdir: "{{ sentinel_install_path }}"
+  register: sentinel_result
+- debug: var=sentinel_result.stdout_lines
+
+- name: Add sentinel to crontab to make sure it runs every 10 min to check on Masternode
+  cron: 
+    name: sentinel
+    user: dash
+    state: present
+    minute: "*/10"
+    hour: "*"
+    job: "{test -f ~/.dashcore/dashd.pid&&cd ~/sentinel && venv/bin/python bin/sentinel.py;} >> ~/sentinel/sentinel-cron.log 2>&1"
+  register: cron_result
+- debug: var=cron_result

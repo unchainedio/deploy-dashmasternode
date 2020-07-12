@@ -1,0 +1,39 @@
+---
+#configure firewall for MN
+#
+# remote_user: dashadmin
+
+- name: Allow SSH
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: Allow TCP
+  ufw: 
+    rule: allow
+    proto: tcp
+
+- name: Limit SSH
+  ufw:
+    rule: limit
+    name: OpenSSH
+
+- name: Limit TCP
+  ufw: 
+    rule: limit
+    proto: tcp
+
+- name: Allow Port 9999 TCP
+  ufw: 
+    rule: allow
+    port: '9999'
+    proto: tcp
+
+- name: Set logging
+  ufw:
+    logging: 'on'
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+

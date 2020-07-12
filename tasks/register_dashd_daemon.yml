@@ -1,0 +1,11 @@
+- name: Create dashd.service in /etc/systemd/system
+  copy:
+    src: dashd.service
+    dest: /etc/systemd/system
+
+- name: enable dashd.service service
+  service: name=dashd enabled=yes
+
+- name: start dashd.service
+  service: name=dashd state=started
+

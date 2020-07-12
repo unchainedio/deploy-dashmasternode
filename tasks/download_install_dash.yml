@@ -1,0 +1,35 @@
+#- name: Download DashCore
+# get_url:
+  #   url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz
+  # dest: /tmp/
+  
+  #- name: Extract Dash Core into /opt
+  #unarchive:
+    # src: /tmp/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz
+    #dest: /opt/
+    #remote_src: yes
+
+- name: Download and Unarchive Dash Core into /opt
+  unarchive:
+    src: "{{ dashpay_release_url }}"
+    dest: "{{ dashpay_install_path }}"
+    remote_src: yes
+
+- name: Create a symbolic link dash -> dashcore-0.xx.xx
+  file:
+    src: "{{ dashpay_install_path }}/dashcore-0.15.0/"
+    dest: "{{ dashpay_install_path }}/dash"
+    owner: root
+    #group: foo
+    state: link
+
+- name: Add /opt/dash/bin to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:/opt/dash/bin'
+
+    #- name: Configure PATH for 'dash' user to run dash commands, eg. 'dashd'/'dash-cli', etc
+    #become: dash
+    #shell: echo $PATH
+    #environment:
+      #PATH: '/opt/dash/bin:{{ ansible_env.PATH }}'

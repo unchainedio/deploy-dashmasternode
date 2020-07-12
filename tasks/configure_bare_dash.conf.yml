@@ -1,0 +1,48 @@
+---
+#- name: set dashconf_file variable
+# set_fact:
+  #   dashconf_file_path=/home/dash/.dashcore/dash.conf
+
+- name: check if a dash.conf already exists
+  stat:
+    path: "{{ dashconf_file_path }}"
+  register: dashconf_file
+  
+- debug: var=dashconf_file
+
+
+- name: Create a {{ dash_core_path }}  directory if it does not exist
+  file:
+    path: "{{ dash_core_path }}"
+    state: directory
+    owner: dash
+    mode: '0755'
+  when: not dashconf_file.stat.exists
+
+- name: write a basic dash.conf file
+  copy:
+    src: dash.conf
+    dest: "{{ dashconf_file_path }}"
+    owner: dash
+  when: not dashconf_file.stat.exists
+    
+- name: Setting 'rpcuser' in dash.conf  to random generated
+  lineinfile:
+    path: "{{ dashconf_file_path }}"
+    regexp: '^rpcuser='
+    line: rpcuser=rpcuser{{110|random(seed=inventory_hostname)}}
+  when: not dashconf_file.stat.exists
+
+- name: setting dash.conf 'rpcpassword' to random generated i
+  lineinfile:
+    path: "{{ dashconf_file_path }}"
+    regexp: '^rpcpassword='
+    line: rpcpassword=rpcpassword{{1000|random(seed=inventory_hostname)}}
+  when: not dashconf_file.stat.exists
+    
+- name: Setting 'externalip' in dash.conf to host IP
+  lineinfile:
+    path: "{{ dashconf_file_path }}"
+    regexp: '^externalip='
+    line: externalip={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+  when: not dashconf_file.stat.exists

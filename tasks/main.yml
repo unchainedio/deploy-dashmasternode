@@ -1,0 +1,37 @@
+---
+# tasks file for /etc/ansible/roles/dashmn
+#
+- name: create users logged in as root
+  block:
+  - import_tasks: whoami.yml
+  - import_tasks: create_users.yml
+  - import_tasks: set_sudoer_permissions.yml
+  #become: true
+  - import_tasks: update_install_reqs.yml
+  #remote_user: root
+  become: yes
+  
+- name: log in as dashadmin
+  #remote_user: dashadmin
+  block:
+  - import_tasks: whoami.yml
+  - import_tasks: disable_rootlogin.yml
+  #- import_tasks: update_install_reqs.yml
+  - import_tasks: configure_firewall.yml
+  - import_tasks: add_swap.yml
+  - import_tasks: download_install_dash.yml
+  - import_tasks: update_systemwide_path_variable.yml 
+  - import_tasks: configure_bare_dash.conf.yml
+  - import_tasks: register_dashd_daemon.yml
+  #remote_user: dashadmin
+  #become_user: root
+  become: yes
+
+- name: login as dash user
+  remote_user: dash
+  block:
+  - import_tasks: whoami.yml
+  #- import_tasks: install_dashpay_sentinel.yml
+  - import_tasks: generate_masternodeblsprivkey.yml
+  - import_tasks: install_dashpay_sentinel.yml
+  # become: yes

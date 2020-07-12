@@ -1,0 +1,21 @@
+---
+- name: Update APT package cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade APT to the latest packages
+  apt: upgrade=safe
+  
+- name: Install ufw, python, virtualenv, git, unzip, pv, speetest-cli
+  apt: 
+    name: 
+      - ufw
+      - python
+      - virtualenv
+      - git
+      - unzip
+      - pv
+      - speedtest-cli
+    state: present
+
+
+

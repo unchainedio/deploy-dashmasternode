@@ -1,0 +1,10 @@
+---
+# handlers file for /etc/ansible/roles/dashmn
+#
+- name: Restart ssh
+  service: name=ssh state=restarted
+
+- name: restart dashd
+  service: name=dashd state=restarted
+  become_user: root
+  become: yes 

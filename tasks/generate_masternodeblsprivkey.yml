@@ -1,0 +1,85 @@
+---
+
+#- name: set dashconf_file variable
+# set_fact:
+  #   dashconf_file_path=/home/dash/.dashcore/dash.conf
+  
+- name: echo $PATH
+  shell: echo $PATH
+  args:
+     executable: /bin/bash
+  register: path
+- debug: var=path
+
+- name: check if {{ bls_keys_path }} file was already generated
+  stat: 
+    path: "{{ bls_keys_path }}"
+  register: keys_file
+- debug: var=keys_file
+
+
+- name: check if a dash.conf already exists
+  stat: 
+    path: "{{ dashconf_file_path }}"
+  register: dashconf_file
+- debug: var=dashconf_file
+
+#if checkmyconf.rc != 0 then the dash.conf does NOT have a masternodeblsprivkey
+- name: Check whether {{ dashconf_file_path }} contains "masternodeblsprivkey="
+  command: grep -Fxq "masternodeblsprivkey=" {{ dashconf_file_path }}
+  register: checkmyconf
+  check_mode: no
+  ignore_errors: yes
+  changed_when: no
+  when: dashconf_file.stat.exists == True
+
+- name: After dashd started, generate masternode bls private key
+  shell: "{{ dashpay_install_path }}/dash/bin/dash-cli bls generate"
+  args:
+     executable: /bin/bash
+  #become: yes
+  #become_user: dash
+  register: bls
+  when: (not keys_file.stat.exists) and (dashconf_file.stat.exists)
+- debug: var=bls
+
+# NEED TO CHECK IF BOTH dash.conf and KEYS exists
+- name: store generated blskeys in variables 
+  set_fact:
+    masternodeblspubkey: "{{ (bls.stdout|from_json).public }}"
+    masternodeblsprivkey: "{{ (bls.stdout|from_json).secret }}"
+  when: (keys_file.stat.exists == False)
+
+- debug: 
+    msg:     
+    - "masternodeblspubkey={{ masternodeblspubkey }}"
+    - "masternodeblsprivkey={{ masternodeblsprivkey }}"
+  when: (keys_file.stat.exists == False)
+
+- name: copy blskeys to {{ bls_keys_path }} to use to check against later
+  copy:
+    dest: "{{ bls_keys_path }}"
+    content: |
+     masternodeblspubkey={{ masternodeblspubkey }}
+     masternodeblsprivkey={{ masternodeblsprivkey }}
+  when: not keys_file.stat.exists
+      
+
+    # with_items:
+      #- "masternodeblspubkey= {{ masternodeblspubkey }}"
+      #- "masternodeblsprivkey= {{ masternodeblsprivkey }}"
+      #"{{ vars[item] }}
+
+
+# if the dash.conf has "masternodeblsprivkey=" DONT run
+- name: Insert masternodeblsprivkey into dash.conf
+  lineinfile:
+    path: "{{ dashconf_file_path }}"
+    insertbefore: 'externalip='
+    line: "masternodeblsprivkey={{ masternodeblsprivkey }}"
+    state: present 
+  notify: restart dashd 
+  when: (not keys_file.stat.exists) and (checkmyconf.rc != 0)
+
+# MAKE SURE WHEN COPYING Dash.conf in earlier play that there isnt an already working dash.conf, 
+# dont overwrite

@@ -1,0 +1,26 @@
+---
+# defaults file for /etc/ansible/roles/dashmn
+
+# location of where dash.conf is expected
+dashconf_file_path: /home/dash/.dashcore/dash.conf
+
+# location of where dashcore is installed
+dash_core_path: /home/dash/.dashcore
+
+# location of swapfile
+swap_file: /var/swapfile
+
+# location of dashpay github release
+dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz
+
+dashpay_install_path: /opt
+
+# url for dashpay sentinel to install
+dashpay_sentinel_url: https://github.com/dashpay/sentinel
+
+# path where sentinel should be install on remote system
+sentinel_install_path: /home/dash/sentinel
+
+# path where ansible will create the bls keys for the Masternode, used to check and backup
+bls_keys_path: ~/.blskeys
+

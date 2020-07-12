@@ -1,0 +1,5 @@
+- name: Get whoami information
+  command: whoami
+  register: login
+
+- debug: var=login 

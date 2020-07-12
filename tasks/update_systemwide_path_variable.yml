@@ -1,0 +1,15 @@
+---
+- set_fact:
+    extra_path: /opt/dash/bin
+
+- name: Adding the path in the bashrc files
+  lineinfile: dest=/home/dash/.bashrc 
+   line='export PATH=$PATH:{{extra_path}}' 
+   insertafter='EOF' 
+   regexp='export PATH=\$PATH:{{extra_path}}' 
+   state=present
+- name: Source the bashrc file
+  shell: source /home/dash/.bashrc
+  args:
+    executable: /bin/bash
+
