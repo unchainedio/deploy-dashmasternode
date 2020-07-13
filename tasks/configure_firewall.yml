@@ -17,7 +17,7 @@
   ufw:
     rule: limit
     name: OpenSSH
-
+  
 - name: Limit TCP
   ufw: 
     rule: limit
@@ -32,7 +32,7 @@
 - name: Set logging
   ufw:
     logging: 'on'
-
+    
 - name: Enable UFW
   ufw:
     state: enabled

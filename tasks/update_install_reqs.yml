@@ -15,7 +15,11 @@
       - unzip
       - pv
       - speedtest-cli
+      - python-pip
     state: present
 
 
-
+- name: "Install github3.py module to be able to use github_release module"
+  pip:
+    name:
+      - github3.py

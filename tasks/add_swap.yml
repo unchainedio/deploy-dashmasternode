@@ -42,7 +42,8 @@
   sysctl:
     name: vm.overcommit_memory
     value: "1"
+  notify: reboot
 
-- name: Reboot
-  reboot:
+  #- name: Reboot
+  #reboot:
 

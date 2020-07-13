@@ -7,4 +7,7 @@
 - name: restart dashd
   service: name=dashd state=restarted
   become_user: root
-  become: yes 
+  become: yes
+
+- name: reboot
+  reboot:
