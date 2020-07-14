@@ -28,37 +28,38 @@ Requirements
 Role Variables
 --------------
 
-# Users: users in the system, admin user to administer the system and dash_user to install dash
+Users: users in the system, admin user to administer the system and dash_user to install dash
 
-dashadmin_user: dashadmin
-dash_user: dash
+'dashadmin_user: dashadmin
+dash_user: dash'
 
-# Required packages to run and install dashcore and dashd
-required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]
+Required packages to run and install dashcore and dashd
 
-# location of where dash.conf is expected
-dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf
+'required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]'
 
-# location of where dashcore is installed
-dash_core_path: /home/{{ dash_user }}/.dashcore
+location of where dash.conf is expected
+'dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf'
 
-# location of swapfile
-swap_file: /var/swapfile
+location of where dashcore is installed
+'dash_core_path: /home/{{ dash_user }}/.dashcore'
 
-# location of dashpay github release
-dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz
+location of swapfile
+'swap_file: /var/swapfile'
 
-#location where dash binaries will be installed
-dashpay_install_path: /opt
+location of dashpay github release
+'dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz'
 
-# url for dashpay sentinel to install
-dashpay_sentinel_url: https://github.com/dashpay/sentinel
+location where dash binaries will be installed
+'dashpay_install_path: /opt'
 
-# path where sentinel should be installed  on the dash user remote system
-sentinel_install_path: /home/{{ dash_user }}/sentinel
+url for dashpay sentinel to install
+'dashpay_sentinel_url: https://github.com/dashpay/sentinel'
 
-# path where ansible will create the bls keys for the Masternode, used to check and backup
-bls_keys_path: ~/.blskeys
+path where sentinel should be installed  on the dash user remote system
+'sentinel_install_path: /home/{{ dash_user }}/sentinel'
+
+path where ansible will create the bls keys for the Masternode, used to check and backup
+'bls_keys_path: ~/.blskeys'
 
 Dependencies
 ------------
