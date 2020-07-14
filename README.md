@@ -2,6 +2,8 @@
 # deploy-dashmasternode
 An ansible based Dashpay (Dash Cryptocurrency) Masternode Deployment
 =======
+
+
 deploy-dash-masternode
 =========
 
@@ -25,41 +27,44 @@ Requirements
 - SSH keys: Ansible operates via SSH keys, if you dont have ssh keys installed you will need to generate your own ssh keys.  'ssh-keygen' in your terminal and it will create a new key for you.
 - A fresh Ubuntu VPS.
 
-Role Variables
+
+Role
+
+Variables
 --------------
 
 Users: users in the system, admin user to administer the system and dash_user to install dash
 
-'dashadmin_user: dashadmin
-dash_user: dash'
+```dashadmin_user: dashadmin
+dash_user: dash```
 
 Required packages to run and install dashcore and dashd
 
-'required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]'
+`required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]`
 
 location of where dash.conf is expected
-'dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf'
+`dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf`
 
 location of where dashcore is installed
-'dash_core_path: /home/{{ dash_user }}/.dashcore'
+`dash_core_path: /home/{{ dash_user }}/.dashcore`
 
 location of swapfile
-'swap_file: /var/swapfile'
+`swap_file: /var/swapfile`
 
 location of dashpay github release
-'dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz'
+`dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz`
 
 location where dash binaries will be installed
-'dashpay_install_path: /opt'
+`dashpay_install_path: /opt`
 
 url for dashpay sentinel to install
-'dashpay_sentinel_url: https://github.com/dashpay/sentinel'
+`dashpay_sentinel_url: https://github.com/dashpay/sentinel`
 
 path where sentinel should be installed  on the dash user remote system
-'sentinel_install_path: /home/{{ dash_user }}/sentinel'
+`sentinel_install_path: /home/{{ dash_user }}/sentinel`
 
 path where ansible will create the bls keys for the Masternode, used to check and backup
-'bls_keys_path: ~/.blskeys'
+`bls_keys_path: ~/.blskeys`
 
 Dependencies
 ------------
