@@ -28,7 +28,7 @@ dashpay_install_path: /opt
 # url for dashpay sentinel to install
 dashpay_sentinel_url: https://github.com/dashpay/sentinel
 
-# path where sentinel should be install on remote system
+# path where sentinel should be installed  on the dash user remote system
 sentinel_install_path: /home/{{ dash_user }}/sentinel
 
 # path where ansible will create the bls keys for the Masternode, used to check and backup
