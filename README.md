@@ -30,13 +30,14 @@ Requirements
 
 Role
 
+
 Variables
 --------------
 
 Users: users in the system, admin user to administer the system and dash_user to install dash
 
-```dashadmin_user: dashadmin
-dash_user: dash```
+`dashadmin_user: dashadmin`
+`dash_user: dash`
 
 Required packages to run and install dashcore and dashd
 
