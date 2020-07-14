@@ -1,8 +1,5 @@
 ---
 
-#- name: set swap_file variable
-# set_fact:
-  #   swap_file: /var/swapfile
 
 - name: check if swap file exists
   stat:
@@ -44,6 +41,4 @@
     value: "1"
   notify: reboot
 
-  #- name: Reboot
-  #reboot:
 

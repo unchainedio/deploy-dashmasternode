@@ -5,18 +5,11 @@
 - name: Upgrade to the latest packages
   package: upgrade=safe
   
-- name: Install ufw, python, virtualenv, git, unzip, pv, speetest-cli
+- name: Install {{ required_packages }}
   package: 
-    name: 
-      - ufw
-      - python
-      - virtualenv
-      - git
-      - unzip
-      - pv
-      - speedtest-cli
-      - python-pip
+    name: "{{ item }}"
     state: present
+  with_items: "{{ required_packages }}"
 
 
 - name: "Install github3.py module to be able to use github_release module"

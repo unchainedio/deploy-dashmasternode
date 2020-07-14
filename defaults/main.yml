@@ -1,5 +1,7 @@
 ---
 # defaults file for /etc/ansible/roles/dashmn
+#
+required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]
 
 # location of where dash.conf is expected
 dashconf_file_path: /home/dash/.dashcore/dash.conf
@@ -13,6 +15,7 @@ swap_file: /var/swapfile
 # location of dashpay github release
 dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz
 
+#location where dash binaries will be installed
 dashpay_install_path: /opt
 
 # url for dashpay sentinel to install

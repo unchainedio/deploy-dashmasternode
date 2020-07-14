@@ -1,7 +1,6 @@
 ---
 #configure firewall for MN
 #
-# remote_user: dashadmin
 
 - name: Allow SSH
   ufw:

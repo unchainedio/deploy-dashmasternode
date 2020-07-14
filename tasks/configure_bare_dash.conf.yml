@@ -1,7 +1,5 @@
 ---
 #- name: set dashconf_file variable
-# set_fact:
-  #   dashconf_file_path=/home/dash/.dashcore/dash.conf
 
 - name: check if a dash.conf already exists
   stat:
