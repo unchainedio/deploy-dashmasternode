@@ -1,3 +1,8 @@
+- name: Check if dashd Service Exists
+  stat: path=/etc/systemd/system/dashd.service
+  register: service_status
+- debug: var=service_status
+
 - name: Create dashd.service in /etc/systemd/system
   copy:
     src: dashd.service

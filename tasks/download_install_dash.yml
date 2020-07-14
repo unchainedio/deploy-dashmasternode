@@ -29,7 +29,7 @@
 - name: Create a symbolic link dash -> dashcore-0.xx.xx
   file:
     src: "{{ dashpay_install_path }}/dashcore-0.15.0/"
-    dest: "{{ dashpay_install_path }}/dash"
+    dest: "{{ dashpay_install_path }}/{{ dash_user }}"
     owner: root
     #group: foo
     state: link
@@ -37,7 +37,7 @@
 - name: Add /opt/dash/bin to system-wide $PATH.
   copy:
     dest: /etc/profile.d/custom-path.sh
-    content: 'PATH=$PATH:/opt/dash/bin'
+    content: 'PATH=$PATH:/opt/{{ dash_user }}/bin'
 
     #- name: Configure PATH for 'dash' user to run dash commands, eg. 'dashd'/'dash-cli', etc
     #become: dash

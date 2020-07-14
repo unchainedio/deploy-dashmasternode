@@ -1,13 +1,20 @@
 ---
 # defaults file for /etc/ansible/roles/dashmn
 #
+
+# Users: users in the system, admin user to administer the system and dash_user to install dash
+
+dashadmin_user: dashadmin
+dash_user: dash
+
+# Required packages to run and install dashcore and dashd
 required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]
 
 # location of where dash.conf is expected
-dashconf_file_path: /home/dash/.dashcore/dash.conf
+dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf
 
 # location of where dashcore is installed
-dash_core_path: /home/dash/.dashcore
+dash_core_path: /home/{{ dash_user }}/.dashcore
 
 # location of swapfile
 swap_file: /var/swapfile
@@ -22,7 +29,7 @@ dashpay_install_path: /opt
 dashpay_sentinel_url: https://github.com/dashpay/sentinel
 
 # path where sentinel should be install on remote system
-sentinel_install_path: /home/dash/sentinel
+sentinel_install_path: /home/{{ dash_user }}/sentinel
 
 # path where ansible will create the bls keys for the Masternode, used to check and backup
 bls_keys_path: ~/.blskeys

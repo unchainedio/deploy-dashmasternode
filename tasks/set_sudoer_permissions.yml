@@ -2,8 +2,8 @@
 - name: Setting Sudoers variables
   set_fact:
     sudoers:
-      - dashadmin
-      - dash
+      - "{{ dashadmin_user }}"
+      - "{{ dash_user }}"
       
 
 - name: Make sure we have a 'wheel' group
