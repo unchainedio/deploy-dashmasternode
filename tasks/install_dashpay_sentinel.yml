@@ -8,6 +8,8 @@
 - debug: var=git_result.stoud_lines
 
 - name: pip install sentinel from requirements.txt and in virtualenv
+  vars:
+    ansible_python_interpreter: "/home/{{ dash_user }}/sentinel/venv/bin/python"
   pip:
     chdir: "{{ sentinel_install_path }}"
     requirements: requirements.txt

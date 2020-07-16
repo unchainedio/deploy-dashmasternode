@@ -11,3 +11,4 @@
 
 - name: reboot
   reboot:
+  remote_user: "{{ dashadmin_user }}"
