@@ -9,16 +9,16 @@
     #dest: /opt/
     #remote_src: yes
 
-- name: "Download latest relase of Dashpay"
+    #- name: "Download latest relase of Dashpay"
     # https://github.com/dglinder/ISOwithKS.git
     #vars:
       # ansible_python_interpreter: "/tmp/test01.venv/bin/python"
-  github_release:
-    user: "dashpay"
-    repo: "dash"
-    action: latest_release
-  register: git_status
-- debug: var=git_status
+      #github_release:
+        #user: "dashpay"
+        #repo: "dash"
+        #action: latest_release
+        #register: git_status
+        #- debug: var=git_status
 
 - name: Download and Unarchive Dash Core into /opt
   unarchive:

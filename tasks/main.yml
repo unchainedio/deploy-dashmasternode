@@ -1,37 +1,45 @@
 ---
-# tasks file for /etc/ansible/roles/dashmn
+# tasks file for /etc/ansible/roles/deploy-dashmasternode
 #
+# since we lock down root access to the machine, we check to see if we can ssh as dash_user
+# if that fails that means this is the first time run, where the dash_user doesnt exist
+# and we then login as root.
+#
+- name: check {{ dash_user }}  user, if not then u can login as root
+  command: ssh -q -o BatchMode=yes -o ConnectTimeout=3 {{ dash_user }}@{{ inventory_hostname }} "echo OK"
+  delegate_to: 127.0.0.1
+  changed_when: false
+  failed_when: false
+  register: dash_user_exist
+- debug: var=dash_user_exist
+
+
 - name: create users logged in as root
   block:
   - import_tasks: whoami.yml
   - import_tasks: create_users.yml
   - import_tasks: set_sudoer_permissions.yml
-  #become: true
   - import_tasks: update_install_reqs.yml
-  #remote_user: root
   become: yes
-  
-- name: log in as dashadmin
-  #remote_user: dashadmin
+  when: not "OK" in dash_user_exist.stdout
+
+- name: log in as {{ dashadmin_user }}
   block:
   - import_tasks: whoami.yml
   - import_tasks: disable_rootlogin.yml
-  #- import_tasks: update_install_reqs.yml
+  - import_tasks: update_install_reqs.yml
   - import_tasks: configure_firewall.yml
   - import_tasks: add_swap.yml
   - import_tasks: download_install_dash.yml
   - import_tasks: update_systemwide_path_variable.yml 
   - import_tasks: configure_bare_dash.conf.yml
   - import_tasks: register_dashd_daemon.yml
-  #remote_user: dashadmin
-  #become_user: root
+  remote_user: "{{ dashadmin_user }}"
   become: yes
 
 - name: login as dash user
-  remote_user: dash
+  remote_user: "{{ dash_user }}"
   block:
   - import_tasks: whoami.yml
-  #- import_tasks: install_dashpay_sentinel.yml
   - import_tasks: generate_masternodeblsprivkey.yml
   - import_tasks: install_dashpay_sentinel.yml
-  # become: yes

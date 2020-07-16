@@ -8,7 +8,9 @@ dashadmin_user: dashadmin
 dash_user: dash
 
 # Required packages to run and install dashcore and dashd
-required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]
+required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli]
+  # become: yes
+  #
 
 # location of where dash.conf is expected
 dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf

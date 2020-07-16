@@ -7,12 +7,12 @@
   
 - name: Install {{ required_packages }}
   package: 
-    name: "{{ item }}"
+    name: "{{ required_packages }}"
     state: present
-  with_items: "{{ required_packages }}"
+    # with_items: "{{ required_packages }}"
 
 
-- name: "Install github3.py module to be able to use github_release module"
-  pip:
-    name:
-      - github3.py
+    #- name: "Install github3.py module to be able to use github_release module"
+    #pip:
+      #name:
+        #- github3.py
