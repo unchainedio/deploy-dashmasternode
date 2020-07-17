@@ -75,7 +75,7 @@ Variables
 
 `dashpay_install_path: /opt`
 
-**url for dashpay sentinel to install**
+**url for sentinel repository**
 
 `dashpay_sentinel_url: https://github.com/dashpay/sentinel`
 
@@ -86,6 +86,7 @@ Variables
 **path where ansible will create the bls keys for the Masternode, used to check and backup**
 
 `bls_keys_path: ~/.blskeys`
+
 
 
 Dependencies
