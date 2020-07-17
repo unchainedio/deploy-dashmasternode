@@ -1,11 +1,7 @@
 # deploy-dashmasternode
 An ansible based Dashpay (Dash Cryptocurrency) Masternode Deployment
-=======
-
-
-
-deploy-dash-masternode
 =========
+
 This role automates the excellent tutorial provided by @xkcd in the Dash Forum, specifically this thread.
 
 [System Wide Masternode setup with systemd and autorestart](https://www.dash.org/forum/threads/system-wide-masternode-setup-with-systemd-auto-re-start-rfc.39460/)
