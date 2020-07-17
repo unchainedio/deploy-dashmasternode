@@ -31,7 +31,7 @@ Requirements
 ------------
 
 - **Ansible:** `pip install ansible`
-- **In the ansible/roles directory*:** `git clone https://github.com/unchainedio/deploy-dashmasternode``
+- **In the ansible/roles directory:** `git clone https://github.com/unchainedio/deploy-dashmasternode``
 - **SSH keys:** Ansible operates via SSH keys, if you dont have ssh keys installed you will need to generate your own ssh keys.  'ssh-keygen' in your terminal and it will create a new key for you.
 - **A fresh Ubuntu VPS.**
 - **In your `hosts` file enter the IP's of the machines**
