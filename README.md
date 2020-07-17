@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # deploy-dashmasternode
 An ansible based Dashpay (Dash Cryptocurrency) Masternode Deployment
 =======
