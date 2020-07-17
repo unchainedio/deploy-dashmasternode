@@ -8,17 +8,18 @@ deploy-dash-masternode
 
 This role automatically deploys a DASH masternode or fleet of DASH masternode servers using ansible.  Right now this role gets you to the point where The Masternode server is ready for the ProRegtx and is ready for you to notify the network about the existence of the Dash Masternode.
 
-This role is tested on Ubuntu LTS 20.01.  I would recommend you run it on that.
+This role is tested on Ubuntu LTS 20.04. 
 
-This role creates a 'dashadmin' user that handles all administrative work  and a normal 'dash' user. It locks down root SSH access as well as via  passwords and only allows access via SSH for the 'dashadmin' user and normal 'dash' user. 
+This role creates a `dashadmin` user that handles all administrative work  and a normal `dash` user. It locks down root SSH access as well as via  passwords and only allows access via SSH for the `dashadmin` user and normal `dash` user. 
 
 access to the dash-cli or any other dash wallet access is available via the 'dash' user.
 
-'dashadmin' user is only used for administration.
-'dash' user is used for everything else.  This is to keep the server secure against access attempts against 'root'.
+`dashadmin` user is only used for administration.
+`dash` user is used for everything else.  This is to keep the server secure against access attempts against `root`.
 
 
 ![deploy Demo](demo/run-deploy-dashmasternode.gif)
+
 
 
 Requirements
@@ -37,47 +38,48 @@ Variables
 
 Variables are located in `deploy-dashmasternode/defaults/main.yml`
 
-Users: users in the system, admin user to administer the system and dash_user to install dash
+**Users: users in the system, admin user to administer the system and dash_user to install dash**
 
 `dashadmin_user: dashadmin`
 
 `dash_user: dash`
 
-Required packages to run and install dashcore and dashd
+**Required packages to run and install dashcore and dashd**
 
 `required_packages: [ufw, python, virtualenv, git, unzip, pv, speedtest-cli, python-pip]`
 
-location of where dash.conf is expected
+**location of where dash.conf is expected**
 
 `dashconf_file_path: /home/{{ dash_user }}/.dashcore/dash.conf`
 
-location of where dashcore is installed
+**location of where dashcore is installed**
 
 `dash_core_path: /home/{{ dash_user }}/.dashcore`
 
-location of swapfile
+**location of swapfile**
 
 `swap_file: /var/swapfile`
 
-location of dashpay github release
+**location of dashpay github release**
 
 `dashpay_release_url: https://github.com/dashpay/dash/releases/download/v0.15.0.0/dashcore-0.15.0.0-x86_64-linux-gnu.tar.gz`
 
-location where dash binaries will be installed
+**location where dash binaries will be installed**
 
 `dashpay_install_path: /opt`
 
-url for dashpay sentinel to install
+**url for dashpay sentinel to install**
 
 `dashpay_sentinel_url: https://github.com/dashpay/sentinel`
 
-path where sentinel should be installed  on the dash user remote system
+**path where sentinel should be installed  on the dash user remote system**
 
 `sentinel_install_path: /home/{{ dash_user }}/sentinel`
 
-path where ansible will create the bls keys for the Masternode, used to check and backup
+**path where ansible will create the bls keys for the Masternode, used to check and backup**
 
 `bls_keys_path: ~/.blskeys`
+
 
 Dependencies
 ------------
@@ -86,6 +88,7 @@ None.
 
 
 Example Playbook
+
 ----------------
 This is an example playbook.  
 
@@ -99,13 +102,14 @@ Including an example of how to use your role (for instance, with variables passe
          - deploy-dashmasternode
 
 
+
 License
 -------
 
-BSD
+MIT
 
-Author Information
+Aut
+hor Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
->>>>>>> 1b7cf23... First commit
+github.com/unchainedio
