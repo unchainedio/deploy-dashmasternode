@@ -12,7 +12,7 @@ This role is tested on Ubuntu LTS 20.04.
 
 This role creates a `dashadmin` user that handles all administrative work  and a normal `dash` user. It locks down root SSH access as well as via  passwords and only allows access via SSH for the `dashadmin` user and normal `dash` user. 
 
-access to the dash-cli or any other dash wallet access is available via the 'dash' user.
+access to the dash-cli or any other dash wallet access is available via the `dash` user.
 
 `dashadmin` user is only used for administration.
 `dash` user is used for everything else.  This is to keep the server secure against access attempts against `root`.
@@ -22,21 +22,24 @@ access to the dash-cli or any other dash wallet access is available via the 'das
 
 
 
+
 Requirements
 ------------
 
-- Ansible: 'pip install ansible'
-- SSH keys: Ansible operates via SSH keys, if you dont have ssh keys installed you will need to generate your own ssh keys.  'ssh-keygen' in your terminal and it will create a new key for you.
-- A fresh Ubuntu VPS.
+- **Ansible:** `pip install ansible`
+- 
+- **SSH keys:** Ansible operates via SSH keys, if you dont have ssh keys installed you will need to generate your own ssh keys.  'ssh-keygen' in your terminal and it will create a new key for you.
+- **A fresh Ubuntu VPS.**
 
 
-Role
+**Make sure you can ssh into the machine before running this script**
 
 
 Variables
+
 --------------
 
-Variables are located in `deploy-dashmasternode/defaults/main.yml`
+**Variables are located in** `deploy-dashmasternode/defaults/main.yml`. 
 
 **Users: users in the system, admin user to administer the system and dash_user to install dash**
 
@@ -86,15 +89,11 @@ Dependencies
 
 None.
 
-
-Example Playbook
-
 ----------------
 This is an example playbook.  
 
 NOTE: `gather_facts: no` is important to have.  In building out the server we lockdown the root access to the machine.  If you have `gather_facts: yes` the script will work the very first time and give errors after that, due to the fact that it defaults to using `root` access which after the first run is locked down with no password or ssh access.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: masternodes
       gather_facts: no
@@ -109,7 +108,8 @@ License
 MIT
 
 Aut
-hor Information
+
+Author Information
 ------------------
 
 github.com/unchainedio
