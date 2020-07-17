@@ -18,6 +18,8 @@ access to the dash-cli or any other dash wallet access is available via the 'das
 'dashadmin' user is only used for administration.
 'dash' user is used for everything else.  This is to keep the server secure against access attempts against 'root'.
 
+#Demo
+![deploy Demo](demo/run-deploy-dashmasternode.gif)
 
 
 Requirements
