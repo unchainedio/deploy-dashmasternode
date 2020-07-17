@@ -86,6 +86,9 @@ None.
 
 Example Playbook
 ----------------
+This is an example playbook.  
+
+NOTE: `gather_facts: no` is important to have.  In building out the server we lockdown the root access to the machine.  If you have `gather_facts: yes` the script will work the very first time and give errors after that, due to the fact that it defaults to using `root` access which after the first run is locked down with no password or ssh access.
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
