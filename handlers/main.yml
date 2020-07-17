@@ -1,14 +1,18 @@
 ---
-# handlers file for /etc/ansible/roles/dashmn
+# handlers file for /etc/ansible/roles/deploy-dashmasternode
 #
 - name: Restart ssh
   service: name=ssh state=restarted
+  remote_user: "{{ dashadmin_user }}"
+  become: yes
 
 - name: restart dashd
   service: name=dashd state=restarted
-  become_user: root
+  remote_user: "{{ dash_user }}"
   become: yes
 
 - name: reboot
   reboot:
   remote_user: "{{ dashadmin_user }}"
+  become: yes
+

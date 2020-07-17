@@ -1,5 +1,7 @@
 ---
 #- name: set dashconf_file variable
+- name: gather facts so ansible knows info about hosts
+  setup: 
 
 - name: check if a dash.conf already exists
   stat:
@@ -37,7 +39,10 @@
     regexp: '^rpcpassword='
     line: rpcpassword=rpcpassword{{1000|random(seed=inventory_hostname)}}
   when: not dashconf_file.stat.exists
-    
+
+  #- name: Gather facts so ansible knows things about the host
+  #setup:
+
 - name: Setting 'externalip' in dash.conf to host IP
   lineinfile:
     path: "{{ dashconf_file_path }}"

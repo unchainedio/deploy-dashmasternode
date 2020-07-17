@@ -1,5 +1,5 @@
 ---
-# defaults file for /etc/ansible/roles/dashmn
+# defaults file for /etc/ansible/roles/deploy-dashmasternode
 #
 
 # Users: users in the system, admin user to administer the system and dash_user to install dash
