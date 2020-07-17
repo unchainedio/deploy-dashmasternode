@@ -3,8 +3,12 @@ An ansible based Dashpay (Dash Cryptocurrency) Masternode Deployment
 =======
 
 
+
 deploy-dash-masternode
 =========
+This role automates the excellent tutorial provided by @xkcd in the Dash Forum, specifically this thread.
+
+[System Wide Masternode setup with systemd and autorestart](https://www.dash.org/forum/threads/system-wide-masternode-setup-with-systemd-auto-re-start-rfc.39460/)
 
 This role automatically deploys a DASH masternode or fleet of DASH masternode servers using ansible.  Right now this role gets you to the point where The Masternode server is ready for the ProRegtx and is ready for you to notify the network about the existence of the Dash Masternode.
 
