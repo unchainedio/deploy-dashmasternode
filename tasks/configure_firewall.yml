@@ -6,27 +6,43 @@
   ufw:
     rule: allow
     name: OpenSSH
+  register: ssh_status
+  changed_when: false
+
+- debug: var=ssh_status
+
 
 - name: Allow TCP
   ufw: 
     rule: allow
     proto: tcp
+  register: tcp_status
+  changed_when: false
+- debug: var=tcp_status
 
 - name: Limit SSH
   ufw:
     rule: limit
     name: OpenSSH
+  register: limitssh_status
+  changed_when: false
+- debug: var=limitssh_status
   
 - name: Limit TCP
   ufw: 
     rule: limit
     proto: tcp
-
+  register: limittcp_status
+  changed_when: false
+  
 - name: Allow Port 9999 TCP
   ufw: 
     rule: allow
     port: '9999'
     proto: tcp
+  register: allowtcpport_status
+  changed_when: false
+- debug: var=allowtcpport_status
 
 - name: Set logging
   ufw:

@@ -9,6 +9,7 @@
   args:
      executable: /bin/bash
   register: path
+  changed_when: false
 - debug: var=path
 
 - name: check if {{ bls_keys_path }} file was already generated

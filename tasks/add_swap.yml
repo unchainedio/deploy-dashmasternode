@@ -33,6 +33,7 @@
 - name: turn on swap
   become: true
   command: swapon -a
+  when: not swap_file_check.stat.exists
 
 - name: set memory management vm.overcommit_memory
   become: true

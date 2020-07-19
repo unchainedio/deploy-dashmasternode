@@ -5,11 +5,12 @@
     clone: yes
     update: no
   register: git_result
-- debug: var=git_result.stoud_lines
+- debug: var=git_result
 
 - name: Manually create the initial virtualenv
   command: 
     cmd: virtualenv {{ sentinel_install_path }}/venv
+    creates: "{{ sentinel_install_path }}/venv"
 
 - name: pip install sentinel from requirements.txt and in virtualenv
   vars:
@@ -21,19 +22,20 @@
   register: pip_result
 - debug: var=pip_result.stdout_lines
 
-- name: Run pip install script in venv
-  command: venv/bin/pip install -r requirements.txt
-  args:
-    chdir: "{{ sentinel_install_path }}" 
-  register: install_result 
-- debug: var=install_result.stdout_lines
+#- name: Run pip install script in venv
+# command: venv/bin/pip install -r requirements.txt
+# args:
+  #   chdir: "{{ sentinel_install_path }}" 
+  #register: install_result 
+  #- debug: var=install_result.stdout_lines
 
 
 - name: run py.test
   command: venv/bin/py.test test
   args:
     chdir: "{{ sentinel_install_path }}"
-  register: py_result    
+  register: py_result 
+  changed_when: "'passed' not in py_result.stdout"
 - debug: var=py_result.stdout_lines
 
 - name: run sentinel.py

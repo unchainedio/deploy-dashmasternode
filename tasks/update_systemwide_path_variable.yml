@@ -12,4 +12,5 @@
   shell: source /home/dash/.bashrc
   args:
     executable: /bin/bash
+  changed_when: false
 

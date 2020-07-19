@@ -1,5 +1,12 @@
 - name: Get whoami information
   command: whoami
   register: login
+  changed_when: false
+- debug: var=login
+#
+#- name: get whoami running the deploy
+# become: false
+  #  local_action: command whoami
+  #register: username_on_the_host
 
-- debug: var=login 
+  #- debug: var=username_on_the_host
