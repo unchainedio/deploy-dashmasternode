@@ -8,7 +8,7 @@
 
 - name: restart dashd
   service: name=dashd state=restarted
-  remote_user: "{{ dash_user }}"
+  remote_user: "{{ dashadmin_user }}"
   become: yes
 
 - name: reboot
