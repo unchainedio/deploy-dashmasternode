@@ -4,41 +4,25 @@
 - name: Setup ufw
   ufw: state=enabled policy=deny
 
-  #- name: Allow SSH
-  #ufw:
-    # rule: allow
-    #name: OpenSSH
-    #register: ssh_status
-    #changed_when: false
-
-  #- debug: var=ssh_status
-
-
 - name: Allow ssh traffic on port 22
   ufw: 
     rule: allow
     proto: tcp
-    port: '22'
+    port: ssh
   register: tcp_status
   changed_when: false
 - debug: var=tcp_status
 
-#- name: Limit SSH
-# ufw:
-  #   rule: limit
-  # name: OpenSSH
+- name: Limit SSH
+  ufw:
+     rule: limit
+     proto: tcp
+     port: ssh
   #register: limitssh_status
   #changed_when: false
   #- debug: var=limitssh_status
   
-  #- name: Limit TCP
-  #ufw: 
-    # rule: limit
-    # proto: tcp
-    #register: limittcp_status
-    #changed_when: false
-  
-- name: Allow Port 9999 TCP
+- name: Allow Port 9999 traffic
   ufw: 
     rule: allow
     port: '9999'
